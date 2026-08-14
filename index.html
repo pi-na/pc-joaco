@@ -532,8 +532,9 @@ Arrancá presentándote en una línea y preguntándome en qué caso estoy y si t
   function say(m,w){ h.hidden=false; h.className='cbhint'+(w?' warn':''); h.textContent=m; }
   function ok(){ b.classList.add('done'); b.textContent='Informe copiado';
     say('Listo. Pegalo en cualquier chat de Claude o ChatGPT: son 9.800 caracteres con todo el detalle.'); }
-  function fail(){ say('Tu navegador no me deja escribir el portapapeles. Abri "Ver el texto completo" y copialo a mano.',1);
-    var d=document.querySelector('details.pr'); if(d) d.open=true; }
+  function fail(){ say('Tu navegador no me dejo escribir el portapapeles. Ya te deje el texto seleccionado abajo: apreta \u2318C / Ctrl+C.',1);
+    var d=document.querySelector('details.pr'); if(d) d.open=true;
+    try{ ta.removeAttribute('readonly'); ta.focus(); ta.select(); ta.setSelectionRange(0, ta.value.length); }catch(e){} }
   b.addEventListener('click', function(){
     var t=ta.value;
     if(navigator.clipboard && navigator.clipboard.writeText){
